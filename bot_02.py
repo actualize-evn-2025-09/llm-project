@@ -7,11 +7,13 @@ llm = OpenAI()
 
 # Memory System
 
-
-developer_message = """What follows is a conversation between a pirate AI assistant and a human user:"""
-assistant_message = "Assistant: Arrgh, how can I help you matey? \n\nUser: "
-user_input = input(assistant_message)
-history = developer_message + assistant_message + user_input
+assistant_message = "Arrgh, how can I help you matey?"
+user_input = input(f"Assistant: {assistant_message}\n")
+history = [
+  {"role": "developer", "content": "You are a helpful AI assistant who always talks like a pirate."},
+  {"role": "assistant", "content": assistant_message},
+  {"role": "user", "content": user_input}
+]
 
 while user_input != "exit":
   response = llm.responses.create(
@@ -20,9 +22,15 @@ while user_input != "exit":
     input=history
   )
 
-  llm_response_text = f"\nAssistant: {response.output_text}"
-  print(llm_response_text)
+  print(f"\nAssistant: {response.output_text}")
 
   user_input = input("\nUser: ")
-  history += f"{llm_response_text}\nUser: {user_input}"
 
+  history += [
+    {"role": "assistant", "content": response.output_text},
+    {"role": "user", "content": user_input}
+  ]
+
+  # print("-----------")
+  # print(history)
+  # print("-----------")
