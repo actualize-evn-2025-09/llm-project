@@ -8,5 +8,6 @@ dependencies = [
     "matplotlib>=3.10.8",
     "numpy>=2.4.0",
     "openai>=2.14.0",
+    "pinecone>=8.0.0",
     "python-dotenv>=1.2.1",
 ]
