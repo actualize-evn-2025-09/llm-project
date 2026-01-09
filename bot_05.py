@@ -1,7 +1,7 @@
 
 import os
 from dotenv import load_dotenv
-from openai import OpenAI
+from langfuse.openai import OpenAI
 from pinecone import Pinecone
 
 load_dotenv()
@@ -45,7 +45,7 @@ while user_input != "exit":
   # RAG Step #3 - Insert the retrieved documentation into the prompt
   history += [
     {"role": "user",
-    "content": f"Here are exerpts from the offical GROSS documentation: {documentation}. Use whatever info from the above documentaion exerpts (an no other info) to answer the following query: {user_input}"}
+    "content": f"Here are exerpts from the offical GROSS documentation: {documentation}. Use whatever info from the above documentaion exerpts (an no other info) to answer the following query: {user_input}. If the user asks something that you are unsure of, make sure to always ask follow-up questions to make sure you're clear on what the user needs. Also, if the user asks something that is vague and you're not sure what service they're asking about, ask follow up questions."}
   ]
 
   response = llm.responses.create(
@@ -61,4 +61,3 @@ while user_input != "exit":
   ]
 
   user_input = input("User: ")
-
