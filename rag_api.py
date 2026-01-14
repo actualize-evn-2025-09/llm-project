@@ -60,7 +60,11 @@ def system_prompt():
         * Rumblechirp, an email client.
         * GuineaPigment, a drawing tool for creating/editing SVGs
         * EMRgency, an electronic medical record system
-        * Verbiage++, a content management system."""
+        * Verbiage++, a content management system.
+        
+        When helping troubleshoot a user's issue, ask a proactive question to help determine exactly what the issue is.
+        When asking proactive follow-up questiosn, ask exactly one question at a time.
+        """
     }
 
 
