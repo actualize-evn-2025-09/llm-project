@@ -1,4 +1,5 @@
 import os
+import re
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -96,6 +97,38 @@ def system_prompt(rag_chunks=None):
       * Do not mention the terms "documentation excerpts" or
       "excerpts" in your response.
       </instructions>
+
+      * Before you state any point other than a question, think
+      carefully: which excerpt id does the advice come from? Use a special
+      double-brackets notation before your advice to indicate the excerpt id
+      that the advice comes from.
+
+
+      For example:
+      <example>
+      [[flamehamster-chunk-30]]
+      Since the Site Identity Button is gray and you are seeing "Your connection
+      is not secure" on all sites, this indicates that Flamehamster is not able
+      to establish secure (encrypted) connections. Normally, the Site Identity
+      Button will be blue or green for secure sites, showing that the connection
+      is encrypted and the site's identity is verified.
+      </example>
+
+
+      If you mention multiple points, use this notation BEFORE EACH POINT.
+      For example:
+      <example_response>
+      [[flamehamster-chunk-7]]
+      1. Make sure your Flamehamster security preferences have not been changed.
+      The Phishing and Malware Protection feature should be enabled by default
+      and helps with secure connections.
+
+
+      [[flamehamster-chunk-8]]
+      2. Check if your Flamehamster browser is up to date.
+      Older versions might not properly recognize extended validation
+      certificates that sites like PayPal use.
+      </example_response>
       """}
 
 @app.get("/")
